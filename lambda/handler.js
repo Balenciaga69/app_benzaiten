@@ -2,23 +2,27 @@ const { processUserInput } = require('./gemini')
 const { insertNotionPage } = require('./notion')
 
 exports.handler = async (event) => {
+  // CORS 預檢請求處理
+  if (event.requestContext?.http?.method === 'OPTIONS' || event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      body: ''
+    }
+  }
+
   try {
     console.log('Received event:', JSON.stringify(event, null, 2))
 
     // 驗證碼檢查
     const expectedAuthCode = process.env.AUTH_CODE
     const providedAuthCode = event.headers?.['x-auth-code'] || event.headers?.['X-Auth-Code']
-    
+
     if (!expectedAuthCode || !providedAuthCode || expectedAuthCode !== providedAuthCode) {
       return {
         statusCode: 401,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           error: 'Unauthorized',
-          message: 'Invalid or missing authentication code' 
+          message: 'Invalid or missing authentication code'
         })
       }
     }
@@ -36,10 +40,6 @@ exports.handler = async (event) => {
     if (!userInput) {
       return {
         statusCode: 400,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
         body: JSON.stringify({ error: 'userInput is required' })
       }
     }
@@ -59,10 +59,6 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
       body: JSON.stringify({
         success: true,
         message: `Successfully processed ${results.length} entries`,
@@ -73,10 +69,6 @@ exports.handler = async (event) => {
     console.error('Lambda error:', error)
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
       body: JSON.stringify({
         error: 'Internal server error',
         details: error.message
