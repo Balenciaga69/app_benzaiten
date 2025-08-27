@@ -59,6 +59,7 @@ async function processUserInput(whatISaid) {
       text = text.replace(/^```json\s*/, '').replace(/\s*```$/, '')
     }
     const jsonResponse = JSON.parse(text)
+    jsonResponse.date = new Date().toISOString().split('T')[0]
     return jsonResponse
   } catch (error) {
     console.error('解析 JSON 失敗:', error)

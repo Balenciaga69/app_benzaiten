@@ -28,3 +28,5 @@
 - `GEMINI_API_KEY=你的_Gemini_API_金鑰`
 - `NOTION_TOKEN=你的_Notion_Token`
 - `DATABASE_ID=你的_Database_ID`
+
+AWS Lambda 的 URL: https://beu6aadqqoq2swyngksbl7xihi0niwii.lambda-url.us-east-1.on.aws/
