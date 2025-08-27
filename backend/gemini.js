@@ -1,7 +1,7 @@
 const { GoogleGenAI } = require('@google/genai')
+require('dotenv').config()
 
-// const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'
-const GEMINI_API_KEY = 'AIzaSyDiwNO6-zPvSuO8fLF1U1OXJSe1gOGCx7Y'
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY
 
 // 初始化 Gemini 客戶端
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY })

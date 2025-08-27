@@ -1,10 +1,8 @@
 const { Client } = require('@notionhq/client')
+require('dotenv').config()
 
-// 替換為你的 API 金鑰
-// const NOTION_TOKEN = 'YOUR_NOTION_TOKEN'
-// const DATABASE_ID = 'YOUR_DATABASE_ID'
-const NOTION_TOKEN = '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'
-const DATABASE_ID = '207a46fe9b4980829d03c9c502020e8a'
+const NOTION_TOKEN = process.env.NOTION_TOKEN
+const DATABASE_ID = process.env.DATABASE_ID 
 
 // 初始化 Notion 客戶端
 const notion = new Client({ auth: NOTION_TOKEN })
