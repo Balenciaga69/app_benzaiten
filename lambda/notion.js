@@ -1,5 +1,4 @@
 const { Client } = require('@notionhq/client')
-require('dotenv').config({ path: './.env' })
 
 // Lambda 中使用環境變數
 const NOTION_TOKEN = process.env.NOTION_TOKEN

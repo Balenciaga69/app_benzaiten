@@ -1,5 +1,4 @@
 const { GoogleGenAI } = require('@google/genai')
-require('dotenv').config({ path: './.env' })
 
 // Lambda 中使用環境變數
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY
