@@ -27,7 +27,7 @@ async function processUserInput(whatISaid) {
       additionalInfo: 'Watched a movie analysis on Avengers' // 細節(只能用無主詞,英文過去簡單式敘述)
    },
    {
-    "date": "2025-08-27",
+    "date": "2025-XX-XX",
     "theme": "WORK",
     "action": "Communicated",
     "subject": "tsconfig",
