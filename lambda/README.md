@@ -28,5 +28,18 @@
 - `GEMINI_API_KEY=你的_Gemini_API_金鑰`
 - `NOTION_TOKEN=你的_Notion_Token`
 - `DATABASE_ID=你的_Database_ID`
+- `AUTH_CODE=你的_驗證碼`（用於 API 安全驗證）
+
+## API 安全驗證
+函數現在需要在 HTTP 請求的 Header 中包含驗證碼：
+- Header 名稱：`X-Auth-Code`
+- Header 值：必須與環境變數 `AUTH_CODE` 相符
+
+### Postman 測試設定
+在 Postman 中添加 Header：
+```
+Content-Type: application/json
+X-Auth-Code: 你設定的驗證碼
+```
 
 AWS Lambda 的 URL: https://beu6aadqqoq2swyngksbl7xihi0niwii.lambda-url.us-east-1.on.aws/

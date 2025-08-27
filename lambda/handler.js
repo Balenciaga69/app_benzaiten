@@ -5,6 +5,24 @@ exports.handler = async (event) => {
   try {
     console.log('Received event:', JSON.stringify(event, null, 2))
 
+    // 驗證碼檢查
+    const expectedAuthCode = process.env.AUTH_CODE
+    const providedAuthCode = event.headers?.['x-auth-code'] || event.headers?.['X-Auth-Code']
+    
+    if (!expectedAuthCode || !providedAuthCode || expectedAuthCode !== providedAuthCode) {
+      return {
+        statusCode: 401,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Unauthorized',
+          message: 'Invalid or missing authentication code' 
+        })
+      }
+    }
+
     // 解析請求體
     let userInput
     if (event.body) {
