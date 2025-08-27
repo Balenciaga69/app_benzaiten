@@ -24,3 +24,7 @@
 
 - **大型語言模型 (LLM)**: **Google Gemini API**
 - **資料庫**: **Notion API**
+
+---
+使用者要準備:
+- AWS 帳號, Google Cloud 帳號, Notion 帳號
