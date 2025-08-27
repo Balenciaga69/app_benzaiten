@@ -1,0 +1,18 @@
+{
+  "name": "lambda-benzaiten",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for Benzaiten app",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "powershell Compress-Archive -Path .\\* -DestinationPath lambda-deployment.zip -Force"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/genai": "^1.15.0",
+    "@notionhq/client": "^4.0.2"
+  }
+}
