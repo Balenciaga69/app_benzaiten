@@ -56,7 +56,6 @@ const BenzaitenForm = () => {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
             'X-Auth-Code': formData.authCode,
           },
         }
@@ -80,18 +79,18 @@ const BenzaitenForm = () => {
   }
 
   return (
-    <div className='card'>
+    <div className='card bg-secondary-subtle border border-secondary rounded-3 shadow-sm'>
       <div className='card-body'>
-        <form onSubmit={handleSubmit}>
-          <div className='mb-3'>
+        <form onSubmit={handleSubmit} className='d-flex flex-column gap-3'>
+          <div>
             <label htmlFor='prompt' className='form-label'>
               提示內容 <span className='text-danger'>*</span>
             </label>
             <textarea
               id='prompt'
               name='prompt'
-              className='form-control'
-              rows={3}
+              className='form-control bg-dark text-light border-secondary'
+              rows={4}
               value={formData.prompt}
               onChange={handleInputChange}
               placeholder='輸入你想要記錄的內容...'
@@ -99,7 +98,7 @@ const BenzaitenForm = () => {
             />
           </div>
 
-          <div className='mb-3'>
+          <div>
             <label htmlFor='authCode' className='form-label'>
               授權碼 <span className='text-danger'>*</span>
             </label>
@@ -107,7 +106,7 @@ const BenzaitenForm = () => {
               id='authCode'
               name='authCode'
               type='password'
-              className='form-control'
+              className='form-control bg-dark text-light border-secondary'
               value={formData.authCode}
               onChange={handleInputChange}
               placeholder='輸入授權碼'
@@ -116,16 +115,16 @@ const BenzaitenForm = () => {
           </div>
 
           {error && (
-            <div className='alert alert-danger' role='alert'>
+            <div className='alert alert-danger py-2 mb-0' role='alert'>
               {error}
             </div>
           )}
 
           {response && (
-            <div className={`alert ${response.success ? 'alert-success' : 'alert-warning'}`} role='alert'>
+            <div className={`alert ${response.success ? 'alert-success' : 'alert-warning'} py-2 mb-0`} role='alert'>
               <strong>{response.message}</strong>
               {response.data && response.data.length > 0 && (
-                <div className='mt-2'>
+                <div className='mt-1'>
                   <small>處理了 {response.data.length} 筆記錄</small>
                 </div>
               )}

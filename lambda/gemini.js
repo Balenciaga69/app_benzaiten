@@ -27,19 +27,19 @@ async function processUserInput(whatISaid) {
   }
 ]
 ### THEME 主題
-- STUDY (學習): 必搭 ACTION。
-- LIFE (生活): 可選 ACTION。
-- WORK (工作): 必搭 ACTION。
+- STUDY (下班學習): 必搭 ACTION。
+- LIFE (下班生活): 可選 ACTION。
+- WORK (上班/工作): 必搭 ACTION。
 - LEET (刷題): 只搭 ACTION: Solved。
 - UDEMY (線上課程): 不搭 ACTION。
-- SideProject (個人項目): Subject 限制是 "Project: GeminiNotion" 或 "Project: AI ChatRoom"。
+- SideProject (下班的個人項目): Subject 限制是 "Project: GeminiNotion" 或 "Project: AI ChatRoom"。
 
 ---
 
 ### ACTION 動作
 - STUDY & WORK 專用: Studied,Planned,Practiced。
-- WORK 專用: Communicated,Modified,Tested,Developed,Fixed,OfficeChores,Easygoing。
-- LEET 專用: Solved。
+- WORK 專用: Communicated(開會或與人討論),Modified(修改或重構既有代碼),Tested(寫單元測試／整合測試),Developed(開發全新內容),Fixed(修復),OfficeChores(偏向行政的雜物),Easygoing(上班很閒、請假)。
+- LEET 專用: Solved(解決問題)。
 - LIFE 專用: Played (subject 為遊戲名,additionalInfo is empty),Hosted (subject is empty,info 固定為 "Hosted visitors"),Exhausted (已經廢棄，極少用)。
 
 句子: ${whatISaid}
