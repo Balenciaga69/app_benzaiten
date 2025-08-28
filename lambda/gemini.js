@@ -70,9 +70,10 @@ async function processUserInput(whatISaid) {
       }
       const jsonResponse = JSON.parse(text)
       for (const entry of jsonResponse) {
-        if (!entry.date) {
-          entry.date = new Date().toISOString().split('T')[0]
-        }
+        entry.date = new Date().toISOString().split('T')[0]
+      }
+      for (const entry of results) {
+        await insertNotionPage(entry)
       }
       return jsonResponse
     } catch (error) {
