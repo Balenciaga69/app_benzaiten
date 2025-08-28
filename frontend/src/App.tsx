@@ -1,4 +1,5 @@
 import BenzaitenForm from './components/BenzaitenForm.tsx'
+import pkg from '../package.json'
 
 function App() {
   return (
@@ -9,6 +10,9 @@ function App() {
           <BenzaitenForm />
         </div>
       </div>
+      <footer className='text-center mt-5 text-secondary small'>
+        © 2025 All Rights Reserved. v{pkg.version}
+      </footer>
     </div>
   )
 }
