@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import axios from 'axios'
 
+interface ProcessedEntry {
+  date: string
+  theme: string
+  action?: string
+  subject: string
+  additionalInfo: string
+}
+
 interface FormData {
   prompt: string
   authCode: string
@@ -9,7 +17,7 @@ interface FormData {
 interface ApiResponse {
   success: boolean
   message: string
-  data?: any[]
+  data?: ProcessedEntry[]
   error?: string
   details?: string
 }
@@ -67,11 +75,13 @@ const BenzaitenForm = () => {
         ...prev,
         prompt: '',
       }))
-    } catch (err: any) {
-      if (err.response) {
-        setError(`錯誤: ${err.response.data.error || err.response.data.message || '未知錯誤'}`)
+    } catch (err: unknown) {
+      const error = err as Error
+      if (error && 'response' in error) {
+        const axiosError = error as { response: { data: ApiResponse } }
+        setError(`錯誤: ${axiosError.response.data.error || axiosError.response.data.message || '未知錯誤'}`)
       } else {
-        setError(`網路錯誤: ${err.message}`)
+        setError(`網路錯誤: ${error.message}`)
       }
     } finally {
       setLoading(false)
@@ -128,6 +138,36 @@ const BenzaitenForm = () => {
                   <small>處理了 {response.data.length} 筆記錄</small>
                 </div>
               )}
+            </div>
+          )}
+
+          {response && response.success && response.data && response.data.length > 0 && (
+            <div className='mt-3'>
+              <h6>處理結果：</h6>
+              <div className='table-responsive'>
+                <table className='table table-dark table-striped table-hover'>
+                  <thead>
+                    <tr>
+                      <th>日期</th>
+                      <th>主題</th>
+                      <th>動作</th>
+                      <th>主旨</th>
+                      <th>細節</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {response.data.map((item: ProcessedEntry, index: number) => (
+                      <tr key={index}>
+                        <td>{item.date}</td>
+                        <td>{item.theme}</td>
+                        <td>{item.action || '-'}</td>
+                        <td>{item.subject}</td>
+                        <td>{item.additionalInfo}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 

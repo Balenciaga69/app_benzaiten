@@ -22,7 +22,7 @@
 ### 主要流程
 1. 使用者在前端輸入自然語句 + 授權碼
 2. 前端送出 `POST` 至 Lambda Function URL，含表頭 `X-Auth-Code`
-3. Lambda 驗證授權碼 → 呼叫 Gemini 進行語意轉換，輸出符合規則的 JSON 陣列
+3. Lambda 驗證授權碼 → 呼叫 Gemini 進行語意轉換（若失敗最多重試三次並附加修正提示），輸出符合規則的 JSON 陣列
 4. 逐筆寫入 Notion Database (日期統一使用執行當天)
 5. 回傳處理成功筆數
 
@@ -104,7 +104,16 @@ Body: { "userInput": "今天下午修正 tsconfig 給新同事使用" }
 {
   "success": true,
   "message": "Successfully processed <n> entries",
-  "data": [ ... ]
+  "data": [
+    {
+      "date": "2025-08-28",
+      "theme": "WORK",
+      "action": "Fixed",
+      "subject": "tsconfig",
+      "additionalInfo": "Fixed the tsconfig issue that a new front-end colleague didn't know how to use."
+    },
+    ...
+  ]
 }
 ```
 
@@ -121,8 +130,8 @@ Body: { "userInput": "今天下午修正 tsconfig 給新同事使用" }
 - 以 Secrets Manager 自動載入機密
 - 增加單元測試與整合測試
 - 實作更嚴謹的 Schema 驗證 (e.g. Zod)
-- 增加重送 / 失敗重試機制
-- 前端顯示 AI 解析後的實際寫入細節
+- 已實現重送 / 失敗重試機制（最多三次，附加修正提示）
+- 已實現前端顯示 AI 解析後的實際寫入細節（以表格形式呈現）
 
 ---
 

@@ -7,7 +7,13 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY })
 
 async function processUserInput(whatISaid) {
-  const prompt = `
+  const maxRetries = 3
+  let attempt = 0
+  let lastError = null
+
+  while (attempt < maxRetries) {
+    try {
+      let prompt = `
 將以下句子轉換成以下格式物件並直接返回JSON物件
 ### 範例格式:
 [
@@ -44,26 +50,35 @@ async function processUserInput(whatISaid) {
 
 句子: ${whatISaid}
 請直接返回 JSON 陣列,不要其他文字。
-  `
+      `
 
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-001',
-    contents: prompt
-  })
+      // 如果不是第一次嘗試，添加修正指示
+      if (attempt > 0) {
+        prompt += `\n\n注意：你上次輸出不符合預期格式，請更正並直接返回有效的 JSON 陣列。`
+      }
 
-  // 假設回應是 JSON 字串,解析它
-  try {
-    let text = response.text.trim()
-    // 移除可能的 Markdown 代碼塊標記
-    if (text.startsWith('```json')) {
-      text = text.replace(/^```json\s*/, '').replace(/\s*```$/, '')
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash-001',
+        contents: prompt
+      })
+
+      // 假設回應是 JSON 字串,解析它
+      let text = response.text.trim()
+      // 移除可能的 Markdown 代碼塊標記
+      if (text.startsWith('```json')) {
+        text = text.replace(/^```json\s*/, '').replace(/\s*```$/, '')
+      }
+      const jsonResponse = JSON.parse(text)
+      jsonResponse.date = new Date().toISOString().split('T')[0]
+      return jsonResponse
+    } catch (error) {
+      lastError = error
+      attempt++
+      console.error(`嘗試 ${attempt} 失敗:`, error)
+      if (attempt >= maxRetries) {
+        throw new Error(`Failed to parse Gemini response after ${maxRetries} attempts: ${lastError.message}`)
+      }
     }
-    const jsonResponse = JSON.parse(text)
-    jsonResponse.date = new Date().toISOString().split('T')[0]
-    return jsonResponse
-  } catch (error) {
-    console.error('解析 JSON 失敗:', error)
-    throw new Error('Failed to parse Gemini response')
   }
 }
 

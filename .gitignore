@@ -374,4 +374,5 @@ FodyWeavers.xsd
 
 # Custom
 **/logs/*
-
+**/dist/*
+**/*.zip
