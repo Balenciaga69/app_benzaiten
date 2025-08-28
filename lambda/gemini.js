@@ -72,9 +72,6 @@ async function processUserInput(whatISaid) {
       for (const entry of jsonResponse) {
         entry.date = new Date().toISOString().split('T')[0]
       }
-      for (const entry of results) {
-        await insertNotionPage(entry)
-      }
       return jsonResponse
     } catch (error) {
       lastError = error
