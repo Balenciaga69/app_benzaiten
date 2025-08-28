@@ -4,6 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/app_benzaiten/',
   plugins: [react(), tsconfigPaths()],
   server: {
     open: true,
