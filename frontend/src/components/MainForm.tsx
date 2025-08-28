@@ -22,7 +22,7 @@ interface ApiResponse {
   details?: string
 }
 
-const BenzaitenForm = () => {
+const MainForm = () => {
   const [formData, setFormData] = useState<FormData>({
     prompt: '',
     authCode: '',
@@ -187,4 +187,4 @@ const BenzaitenForm = () => {
   )
 }
 
-export default BenzaitenForm
+export default MainForm
