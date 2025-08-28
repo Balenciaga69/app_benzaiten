@@ -69,7 +69,11 @@ async function processUserInput(whatISaid) {
         text = text.replace(/^```json\s*/, '').replace(/\s*```$/, '')
       }
       const jsonResponse = JSON.parse(text)
-      jsonResponse.date = new Date().toISOString().split('T')[0]
+      for (const entry of jsonResponse) {
+        if (!entry.date) {
+          entry.date = new Date().toISOString().split('T')[0]
+        }
+      }
       return jsonResponse
     } catch (error) {
       lastError = error

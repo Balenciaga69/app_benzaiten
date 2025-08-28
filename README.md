@@ -24,7 +24,7 @@
 2. 前端送出 `POST` 至 Lambda Function URL，含表頭 `X-Auth-Code`
 3. Lambda 驗證授權碼 → 呼叫 Gemini 進行語意轉換（若失敗最多重試三次並附加修正提示），輸出符合規則的 JSON 陣列
 4. 逐筆寫入 Notion Database (日期統一使用執行當天)
-5. 回傳處理成功筆數
+5. 回傳生成內容
 
 ---
 
