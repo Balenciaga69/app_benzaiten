@@ -14,42 +14,69 @@ async function processUserInput(whatISaid) {
   while (attempt < maxRetries) {
     try {
       let prompt = `
-將以下句子轉換成以下格式物件並直接返回JSON物件
-### 範例格式:
+將以下句子轉換成以下格式物件並直接返回有效的 JSON 陣列。不要包含任何額外的文字、解釋或程式碼區塊標記（例如 \`\`\`json）。
+
+### 範例格式
 [
    {
-      date: '2025-XX-XX', // 默認今天
-      theme: 'LIFE', // 參考 THEME 列表
-      action: null, // 參考 ACTION 列表
-      subject: 'Marvel Avengers', // 只能使用英文標題
-      additionalInfo: 'Watched a movie analysis on Avengers' // 細節(只能用無主詞,英文過去簡單式敘述)
+      "date": "2025-XX-XX",
+      "theme": "WORK",
+      "action": "Developed",
+      "subject": "MarketData and Position Controllers",
+      "additionalInfo": "Created C# controllers for market data and positions."
    },
    {
-    "date": "2025-XX-XX",
-    "theme": "WORK",
-    "action": "Communicated",
-    "subject": "tsconfig",
-    "additionalInfo": "Fixed the tsconfig issue that a new front-end colleague didn't know how to use."
-  }
+      "date": "2025-XX-XX",
+      "theme": "STUDY",
+      "action": "Studied",
+      "subject": "AWS Lambda CORS",
+      "additionalInfo": "Struggled with AWS LAMBDA CORS Header configuration, not solved yet."
+   },
+   {
+      "date": "2025-XX-XX",
+      "theme": "LIFE",
+      "action": "Played",
+      "subject": "Backpack Battles",
+      "additionalInfo": ""
+   },
+   {
+      "date": "2025-XX-XX",
+      "theme": "UDEMY",
+      "action": null,
+      "subject": "Javascript Advanced",
+      "additionalInfo": "Completed lesson 5."
+   }
 ]
-### THEME 主題
-- STUDY (下班學習): 必搭 ACTION。
-- LIFE (下班生活): 可選 ACTION。
-- WORK (上班/工作): 必搭 ACTION。
-- LEET (刷題): 只搭 ACTION: Solved。
-- UDEMY (線上課程): 不搭 ACTION。
-- SideProject (下班的個人項目): Subject 限制是 "Project: GeminiNotion" 或 "Project: AI ChatRoom"。
+
+### 規則
+1.  返回格式：必須且只能返回一個有效的 JSON 陣列。
+2.  date：固定為 YYYY-MM-DD 格式。
+3.  theme：必須從下方的主題列表中選取。
+4.  action：必須從下方的動作列表中選取，並符合主題的對應規則。如果沒有動作，請填寫 null。
+5.  subject：只能使用英文，SideProject 主題有特定限制。
+6.  additionalInfo：必須是關於細節的英文敘述，且不帶主詞，使用過去簡單式。如果沒有細節，請留空字串 ""。
+
+### THEME 主題與其規則
+-   STUDY (下班學習): 必須搭配一個 ACTION。
+-   LIFE (下班生活): 可搭配或不搭配 ACTION。
+-   WORK (上班/工作): 必須搭配一個 ACTION。
+-   LEET (刷題): 動作固定為 Solved 或 Practiced。
+-   UDEMY (線上課程): 動作必須是 null。
+-   SideProject (下班的個人項目): Subject 限制為 "Project: GeminiNotion" 或 "Project: AI ChatRoom"。
 
 ---
 
-### ACTION 動作
-- STUDY & WORK 專用: Studied,Planned,Practiced。
-- WORK 專用: Communicated(開會或與人討論),Modified(修改或重構既有代碼),Tested(寫單元測試／整合測試),Developed(開發全新內容),Fixed(修復),OfficeChores(偏向行政的雜物),Easygoing(上班很閒、請假)。
-- LEET 專用: Solved(解決問題)。
-- LIFE 專用: Played (subject 為遊戲名,additionalInfo is empty),Hosted (subject is empty,info 固定為 "Hosted visitors"),Exhausted (已經廢棄，極少用)。
+### ACTION 動作列表
+-   WORK & STUDY 專用: Studied, Planned, Practiced。
+-   WORK 專用: Communicated (開會或與人討論), Modified (修改或重構既有代碼), Tested (寫單元測試／整合測試), Developed (開發全新內容), Fixed (修復), OfficeChores (行政雜務), Easygoing (很閒或請假)。
+-   LEET 專用: Solved, Practiced。
+-   LIFE 專用: Played (玩遊戲), Hosted (接待訪客)。
+
+---
 
 句子: ${whatISaid}
-請直接返回 JSON 陣列,不要其他文字。
+
+請直接返回 JSON 陣列，不要加入任何其他文字。
       `
 
       // 如果不是第一次嘗試，添加修正指示
