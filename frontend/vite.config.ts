@@ -8,10 +8,10 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     open: true,
-    port: 7414,
+    port: 5278,
     host: '0.0.0.0',
     hmr: {
-      port: 7414,
+      port: 5278,
       host: 'localhost',
     },
   },
