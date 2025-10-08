@@ -32,20 +32,6 @@
    },
    {
       "date": "2025-XX-XX",
-      "theme": "LIFE",
-      "action": "Played",
-      "subject": "Backpack Battles",
-      "additionalInfo": ""
-   },
-   {
-      "date": "2025-XX-XX",
-      "theme": "LIFE",
-      "action": "Socialized",
-      "subject": "",
-      "additionalInfo": "Hosted visitors."
-   },
-   {
-      "date": "2025-XX-XX",
       "theme": "LEET",
       "action": "Solved",
       "subject": "0001.Two Sum",
@@ -63,7 +49,6 @@
 
 ### THEME 主題與其規則
 -   STUDY (下班學習): 必須搭配一個 ACTION。
--   LIFE (下班生活): 可搭配或不搭配 ACTION。
 -   WORK (上班/工作): 必須搭配一個 ACTION。
 -   LEET (刷題): 動作固定為 Solved 或 Practiced。
 -   UDEMY (線上課程): 動作必須是 null。
@@ -75,7 +60,5 @@
 -   WORK & STUDY 專用: Studied, Planned, Practiced。
 -   WORK 專用: Communicated (開會或與人討論), Modified (修改或重構既有代碼), Tested (寫單元測試／整合測試), Developed (開發全新內容), Fixed (修復), OfficeChores (行政雜務), Easygoing (很閒或請假)。
 -   LEET 專用: Solved, Practiced。
--   LIFE 專用: Exercised (運動、健身), Played (玩遊戲), Socialized (外出、接待訪客、出去玩)。
-
 ---
 請直接返回 JSON 陣列，不要加入任何其他文字。
