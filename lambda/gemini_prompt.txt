@@ -29,13 +29,6 @@
       "action": "Studied",
       "subject": "AWS Lambda CORS",
       "additionalInfo": "Struggled with AWS LAMBDA CORS Header configuration, not solved yet."
-   },
-   {
-      "date": "2025-XX-XX",
-      "theme": "LEET",
-      "action": "Solved",
-      "subject": "0001.Two Sum",
-      "additionalInfo": "Implemented using `HashTable` in `Go`."
    }
 ]
 
@@ -50,7 +43,6 @@
 ### THEME 主題與其規則
 -   STUDY (下班學習): 必須搭配一個 ACTION。
 -   WORK (上班/工作): 必須搭配一個 ACTION。
--   LEET (刷題): 動作固定為 Solved 或 Practiced。
 -   UDEMY (線上課程): 動作必須是 null。
 -   SideProject (下班的個人項目): 動作通常有 Practiced、Planned
 
@@ -59,6 +51,5 @@
 ### ACTION 動作列表
 -   WORK & STUDY 專用: Studied, Planned, Practiced。
 -   WORK 專用: Communicated (開會或與人討論), Modified (修改或重構既有代碼), Tested (寫單元測試／整合測試), Developed (開發全新內容), Fixed (修復), OfficeChores (行政雜務), Easygoing (很閒或請假)。
--   LEET 專用: Solved, Practiced。
 ---
 請直接返回 JSON 陣列，不要加入任何其他文字。
